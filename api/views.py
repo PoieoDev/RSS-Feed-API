@@ -9,8 +9,8 @@ class RSSFeed(APIView):
     def post(self, req, format=None):
 
         website_url = req.data['url']
-        req_xml_feed = req.data['xml']
-        req_json_feed = req.data['json']
+        req_xml_feed = req.data['xml'] if "xml" in req.data else True
+        req_json_feed = req.data['json'] if "json" in req.data else True
         rss_feed = {}
         json_feed = {}
 
@@ -33,4 +33,4 @@ class RSSFeed(APIView):
         print(rss_feed)
         print(json_feed)
 
-        return Response({"message": "URL Works", "url_tested": website_url, "xml": rss_feed if req_xml_feed else {}, "json": json_feed}, status=200)
+        return Response({"message": "success", "url_tested": website_url, "xml": rss_feed if req_xml_feed else {}, "json": json_feed}, status=200)
